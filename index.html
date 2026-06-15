@@ -1,0 +1,399 @@
+<!DOCTYPE html>  
+<html lang="pt-br">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#19c37d">
+
+    <title>Marmitex Ponto Certo</title>  
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">  
+
+    <style>  
+        body {  
+          font-family: 'Poppins', sans-serif;  
+          margin: 0;  
+          background: #222;  
+          -webkit-tap-highlight-color: transparent; /* Remove o brilho azul ao clicar no iPhone */
+        }  
+
+        .topo { position: relative; }  
+
+        .banner {  
+          position: relative;  
+          /* Garantindo que o background carregue */
+          background: url('https://i.imgur.com/CTrWr6d.jpeg') center/cover no-repeat;  
+          height: 400px;  
+          display: flex;  
+          justify-content: center;  
+          align-items: flex-end;  
+          padding-bottom: 40px;  
+        }  
+
+        .banner::before {  
+          content: "";  
+          position: absolute;  
+          inset: 0;  
+          background: rgba(0,0,0,0.6);  
+        }  
+
+        .texto-banner {
+          position: relative;
+          z-index: 2;
+          color: white;
+          text-align: center;
+          padding: 0 20px;
+        }
+
+        .texto-banner h2 { font-size: 20px; line-height: 1.3; margin-bottom: 5px; }
+        .texto-banner p { font-size: 14px; margin: 5px 0; }
+
+        .horario-box { margin-top: 10px; }  
+        .status {  
+          font-size: 13px;  
+          margin-top: 4px;  
+          padding: 6px 15px;  
+          border-radius: 20px;  
+          display: inline-block;  
+          font-weight: 600;  
+          color: white;
+        }  
+
+        .logo-central {  
+          position: absolute;  
+          top: 15px;  
+          left: 50%;  
+          transform: translateX(-50%);  
+          width: 120px;  
+          height: 120px;  
+          border-radius: 50%;  
+          border: 4px solid white;  
+          object-fit: cover;
+          z-index: 3;
+        }  
+
+        section { max-width: 500px; margin: auto; }  
+
+        .cardapio-titulo {  
+          background: white;  
+          margin: 15px 10px;  
+          padding: 15px;  
+          border-radius: 15px;  
+          text-align: center;  
+          font-size: 20px;  
+          font-weight: 600;  
+        }  
+
+        .produto {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: white;
+          padding: 14px;
+          margin: 12px 10px;
+          border-radius: 15px;
+        }
+
+        .nome { flex: 1; font-weight: 600; font-size: 15px; }  
+        .preco { margin-right: 10px; font-weight: bold; color: #19c37d; }  
+
+        button {  
+          background: #19c37d;  
+          color: white;  
+          border: none;  
+          padding: 10px 18px;  
+          border-radius: 25px;  
+          font-weight: bold;
+          cursor: pointer;
+          touch-action: manipulation; /* Melhora resposta ao toque no iOS */
+        }  
+
+        .info-cardapio {  
+          background: white;  
+          margin: 10px;  
+          padding: 15px;  
+          border-radius: 12px;  
+        }  
+
+        .opcoes, .opcoes-pure {  
+          display: flex;  
+          gap: 8px;  
+          margin-top: 10px;
+        }  
+
+        .opcoes button, .opcoes-pure button {  
+          flex: 1;  
+          border: 2px solid #eee;  
+          background: #f9f9f9;  
+          color: #333;  
+          font-size: 13px;
+        }  
+
+        .opcoes button.ativo, .opcoes-pure button.ativo {  
+          background: #19c37d;  
+          color: white;  
+          border-color: #19c37d;
+        }  
+
+        .carrinho {  
+          background: white;  
+          margin: 20px 10px;  
+          padding: 20px;  
+          border-radius: 12px;  
+        }  
+
+        input, textarea {  
+          width: 100%;  
+          padding: 12px;  
+          border-radius: 8px;  
+          border: 1px solid #ddd;  
+          box-sizing: border-box; /* Evita que o input saia da tela */
+          font-size: 16px; /* Tamanho 16px evita o zoom automático do iOS */
+          margin-bottom: 10px;
+        }  
+
+        .whatsapp {  
+          position: fixed;  
+          bottom: 20px;  
+          right: 20px;  
+          background: #25D366;  
+          color: white;  
+          padding: 15px;  
+          border-radius: 50%;  
+          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+          z-index: 99;
+          text-decoration: none;
+          font-size: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }  
+    </style>  
+</head>  
+
+<body>  
+
+<div class="topo">  
+    <div class="banner">  
+        
+        <img src="https://i.imgur.com/QoZe9x7.jpeg" class="logo-central" crossorigin="anonymous">
+        <div class="texto-banner">  
+            <h2>Hoje tem marmitex caprichada<br>bem servida e feita na hora</h2>  
+            <p>Comida caseira, sabor de verdade!</p>  
+            <p><strong>Peça agora 👇</strong></p>  
+            <div class="horario-box">
+              <p style="font-size: 12px; opacity: 0.9; margin:0;">  Aberto das 11h às 15h</p>
+              <div class="status" id="statusLoja">Verificando...</div>
+            </div>
+        </div>  
+    </div>  
+</div>  
+
+<section>  
+    <div class="cardapio-titulo">🍛 Cardápio</div>  
+
+    <div class="produto">
+        <span class="nome">Milanesa de frango</span>
+        <span class="preco">R$ 15</span>
+        <button class="add-btn" data-nome="Milanesa de frango" data-preco="15">Adicionar</button>
+    </div>
+
+    <div class="produto">
+        <span class="nome">Estrogonofe de frango</span>
+        <span class="preco">R$ 15</span>
+        <button class="add-btn" data-nome="Estrogonofe de frango" data-preco="15">Adicionar</button>
+    </div>
+
+    <div class="produto">
+        <span class="nome">Parmegiana de frango</span>
+        <span class="preco">R$ 15</span>
+        <button class="add-btn" data-nome="Parmegiana de frango" data-preco="15">Adicionar</button>
+    </div>
+
+    <div class="produto">
+        <span class="nome">Calabresa acebolada</span>
+        <span class="preco">R$ 15</span>
+        <button class="add-btn" data-nome="Calabresa acebolada" data-preco="15">Adicionar</button>
+    </div>
+
+    <div class="info-cardapio">
+        <p><strong>🍚 Acompanha:</strong> Arroz e Feijão</p>
+        <p><strong>🥔 Escolha seu acompanhamento:</strong></p>
+        <div class="opcoes-pure">
+            <button type="button" onclick="setPure('Com purê', this)">Com purê</button>
+            <button type="button" onclick="setPure('Sem purê', this)">Sem purê</button>
+        </div>
+        <p style="color: red; font-weight: bold; margin-top: 15px; font-size: 13px;">⚠️ As marmitex acabam rápido!</p>
+    </div>
+</section>
+
+<section class="carrinho">
+    <h2>Seu Pedido</h2>
+    <ul id="lista" style="list-style: none; padding: 0;"></ul>
+    <h3 id="total">Total: R$ 0</h3>
+
+    <input type="text" id="nome" placeholder="Seu nome">
+    <input type="text" id="rua" placeholder="Rua">
+    <input type="text" id="numero" placeholder="Número">
+    <input type="text" id="bairro" placeholder="Bairro">
+    <input type="text" id="cep" placeholder="CEP" maxlength="9">
+    <textarea id="obs" placeholder="Observação (ex: sem cebola)"></textarea>
+
+    <p><strong>Forma de Pagamento:</strong></p>
+    <div class="opcoes">
+        <button type="button" onclick="setPagamento('Dinheiro', this)">💵 Dinheiro</button>
+        <button type="button" onclick="setPagamento('Pix', this)">⚡ Pix</button>
+    </div><br>
+
+    <button onclick="finalizar()" style="width: 100%; padding: 15px; font-size: 18px;">Finalizar Pedido</button>
+</section>
+
+<a class="whatsapp" href="https://wa.me/5511919789374">💬</a>
+
+<script>
+let carrinho = [];
+let pagamentoSelecionado = "";
+let pureSelecionado = "";
+
+/* ADICIONAR ITEM */
+function add(nome, preco) {
+    carrinho.push({nome, preco});
+    atualizar();
+}
+
+/* REMOVER ITEM */
+function remover(nome) {
+    let index = carrinho.findIndex(item => item.nome === nome);
+    if (index !== -1) carrinho.splice(index, 1);
+    atualizar();
+}
+
+/* ATUALIZAR CARRINHO */
+function atualizar() {
+    let lista = document.getElementById("lista");
+    let total = 0;
+    lista.innerHTML = "";
+    let resumo = {};
+
+    carrinho.forEach((item) => {
+        total += item.preco;
+        resumo[item.nome] = (resumo[item.nome] || 0) + 1;
+    });
+
+    for (let nome in resumo) {
+        lista.innerHTML += `
+        <li style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
+          <span>${resumo[nome]}x ${nome}</span>
+          <button onclick="remover('${nome}')" style="background:red; padding: 5px 10px; font-size:12px;">Remover</button>
+        </li>`;
+    }
+
+    document.getElementById("total").innerText = "Total: R$ " + total;
+}
+
+/* PAGAMENTO */
+function setPagamento(tipo, el) {
+    pagamentoSelecionado = tipo;
+    document.querySelectorAll('.opcoes button').forEach(btn => btn.classList.remove('ativo'));
+    el.classList.add('ativo');
+}
+
+/* PURÊ */
+function setPure(tipo, el) {
+    pureSelecionado = tipo;
+    document.querySelectorAll('.opcoes-pure button').forEach(btn => btn.classList.remove('ativo'));
+    el.classList.add('ativo');
+}
+
+/* HORÁRIO */
+function verificarHorario() {
+    const hora = new Date().getHours();
+    const status = document.getElementById("statusLoja");
+
+    if (hora >= 11 && hora < 15) {
+        status.innerText = " Aberto Agora";
+        status.style.background = "#19c37d";
+    } else {
+        status.innerText = " Fechado";
+        status.style.background = "#e53935";
+    }
+}
+
+/* FINALIZAR PEDIDO */
+function finalizar() {
+    let nome = document.getElementById("nome").value;
+    let cep = document.getElementById("cep").value;
+    let rua = document.getElementById("rua").value;
+    let numero = document.getElementById("numero").value;
+    let bairro = document.getElementById("bairro").value;
+    let obs = document.getElementById("obs").value;
+
+    if (!nome || !rua || !numero || !bairro || !pagamentoSelecionado || carrinho.length === 0) {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    let resumo = {};
+    let total = 0;
+
+    carrinho.forEach((item) => {
+        resumo[item.nome] = (resumo[item.nome] || 0) + 1;
+        total += item.preco;
+    });
+
+    let msg = "*NOVO PEDIDO - MARMITEX PONTO CERTO*\n\n";
+
+    for (let item in resumo) {
+        msg += `${resumo[item]}x ${item}\n`;
+    }
+
+    if (pureSelecionado) msg += `\n📌 ${pureSelecionado}`;
+
+msg += `\n___________________________`;
+msg += `\n⚠️ Taxa de entrega a consultar`;
+msg += `\n Total: R$ ${total}`;
+
+msg += `\n\n Rua: ${rua}, ${numero}`;
+msg += `\n Bairro: ${bairro}`;
+msg += `\n CEP: ${cep}`;
+
+msg += `\n\n Cliente: ${nome}`;
+
+if (obs) msg += `\n Obs: ${obs}`;
+
+msg += `\n💳 Forma de pagamento: ${pagamentoSelecionado}`;
+
+    window.location.href = "https://wa.me/5511919789374?text=" + encodeURIComponent(msg);
+}
+
+/* BOTÕES IPHONE */
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            add(this.dataset.nome, Number(this.dataset.preco));
+        });
+    });
+
+    verificarHorario();
+
+    /* CEP AUTO */
+    document.getElementById("cep").addEventListener("blur", function() {
+        let cep = this.value.replace(/\D/g, '');
+
+        if (cep.length !== 8) return;
+
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(res => res.json())
+            .then(dados => {
+                if (!dados.erro) {
+                    document.getElementById("rua").value = dados.logradouro;
+                    document.getElementById("bairro").value = dados.bairro;
+                }
+            });
+    });
+});
+</script>
+</body>
+</html>
